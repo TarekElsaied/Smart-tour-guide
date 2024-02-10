@@ -1,6 +1,18 @@
 import { SectionModel } from "../../../database/models/Section.js";
 import { placeModel } from "../../../database/models/place.model.js";
 
+export const getPlace = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    if (!id) return res.json("not found");
+    const place = await placeModel.findById(id);
+    res.json(place);
+  } catch (error) {
+    next(error);
+  }
+};
+export const getPlaces = (req, res) => {};
+
 export const addPlace = async (req, res, next) => {
   try {
     const { sectionName, name, desc, coordinates } = req.body;
@@ -23,15 +35,3 @@ export const addPlace = async (req, res, next) => {
     next(error);
   }
 };
-
-export const getPlace = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    if (!id) return res.json("not found");
-    const place = await placeModel.findById(id);
-    res.json(place);
-  } catch (error) {
-    next(error);
-  }
-};
-export const getPlaces = (req, res) => {};
