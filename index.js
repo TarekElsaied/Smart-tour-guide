@@ -29,7 +29,9 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: "err", err });
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port || process.env.port, () =>
+  console.log(`Example app listening on port ${port}!`)
+);
 
 // model => place ( desc , media ['id','id1'], )
 
