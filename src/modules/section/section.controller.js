@@ -17,7 +17,7 @@ export const addSection = async (req, res, next) => {
 
 export const getSection = async (req, res, next) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     if (!id) return res.json("not found");
     const section = await SectionModel.findById(id);
     let places = [];
@@ -26,6 +26,14 @@ export const getSection = async (req, res, next) => {
     });
     let result = { name: section.name, des: section.desc, places };
     res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+export const getAllSection = async (req, res, next) => {
+  try {
+    const sections = await SectionModel.find({});
+    res.json(sections);
   } catch (error) {
     next(error);
   }

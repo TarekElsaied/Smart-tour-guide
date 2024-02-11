@@ -1,6 +1,15 @@
 import { SectionModel } from "../../../database/models/Section.js";
 import { placeModel } from "../../../database/models/place.model.js";
 
+export const getAllPlaces = async (req, res, next) => {
+  try {
+    const places = await placeModel.find({});
+    res.json(places);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getPlace = async (req, res, next) => {
   try {
     const { id } = req.params;

@@ -1,9 +1,10 @@
 import express from "express";
-import { getSection, addSection } from "./section.controller.js";
+import { getSection, addSection, getAllSection } from "./section.controller.js";
 
 const SectionRouter = express.Router();
 
-SectionRouter.get("/getSection", getSection);
-SectionRouter.post("/addSection", addSection);
+SectionRouter.get("/:id", getSection);
+SectionRouter.get("/", getAllSection);
+SectionRouter.post("/", addSection);
 
 export default SectionRouter;
