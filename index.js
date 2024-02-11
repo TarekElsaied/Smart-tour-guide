@@ -15,14 +15,14 @@ conn();
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static("uploads"));
-app.get("/tes", (req, res) => {
-  return res.json({ message: "welcome to our website" });
-});
 app.use("/places", placeRouter);
 app.use("/users", userRouter);
 app.use("/photo", phototRouter);
 app.use("/Section", SectionRouter);
 
+app.get("/tes", (req, res) => {
+  return res.json({ message: "welcome to our website" });
+});
 //app.all('*',(req,res)=>{
 // res.json({message:"invalid url - cant access this endpoint "+req.originalUrl})
 //})
