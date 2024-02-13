@@ -34,7 +34,7 @@ export const signUp = catchError(async (req, res) => {
   if (!error) {
     let user = await userModel.findOne({ email });
     if (user) {
-      res.status(500).json({ message: "Email is existes befor" });
+      res.status(409).json({ message: "Email is existes befor" });
     } else {
       bcrypt.hash(password, 8, async function (err, hash) {
         await userModel.insertMany({ name, email, age, password: hash });
@@ -43,14 +43,14 @@ export const signUp = catchError(async (req, res) => {
       });
     }
   } else {
-    res.json(error.details);
+    res.status(422).json(error.details);
   }
 });
 
 export const verify = catchError(async (req, res) => {
   const { token } = req.params;
   Jwt.verify(token, _JwtSecret, async (err, decoded) => {
-    if (err) return res.status(500).json(err);
+    if (err) return res.status(400).json(err);
 
     await userModel.findOneAndUpdate(
       { email: decoded.email },
@@ -65,9 +65,9 @@ export const signIn = catchError(async (req, res) => {
   let user = await userModel.findOne({ email });
 
   if (!user || !(await bcrypt.compare(password, user.password))) {
-    return res.status(500).json({ message: "incorrect password or user" });
+    return res.status(400).json({ message: "incorrect password or user" });
   }
-  user["password"] = undefined;
+  //user["password"] = undefined;
   var token = Jwt.sign({ user }, "Tarek");
   return res.status(200).json({ message: "login", token });
 });
