@@ -34,12 +34,12 @@ export const signUp = catchError(async (req, res) => {
   if (!error) {
     let user = await userModel.findOne({ email });
     if (user) {
-      res.json({ message: "Email is existes befor" });
+      res.status(500).json({ message: "Email is existes befor" });
     } else {
       bcrypt.hash(password, 8, async function (err, hash) {
         await userModel.insertMany({ name, email, age, password: hash });
         sendeEmail({ email });
-        res.json({ message: " success" });
+        res.status(200).json({ message: " success" });
       });
     }
   } else {
@@ -50,13 +50,13 @@ export const signUp = catchError(async (req, res) => {
 export const verify = catchError(async (req, res) => {
   const { token } = req.params;
   Jwt.verify(token, _JwtSecret, async (err, decoded) => {
-    if (err) return res.json(err);
+    if (err) return res.status(500).json(err);
 
     await userModel.findOneAndUpdate(
       { email: decoded.email },
       { confirmedEmail: true }
     );
-    res.json({ message: "success" });
+    res.status(200).json({ message: "success" });
   });
 });
 
@@ -69,7 +69,7 @@ export const signIn = catchError(async (req, res) => {
   }
   user["password"] = undefined;
   var token = Jwt.sign({ user }, "Tarek");
-  return res.json({ message: "login", token });
+  return res.status(200).json({ message: "login", token });
 });
 
 //
