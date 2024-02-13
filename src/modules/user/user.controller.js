@@ -69,7 +69,7 @@ export const signIn = catchError(async (req, res) => {
   }
   user["password"] = undefined;
   var token = Jwt.sign({ user }, "Tarek");
-  res.status(200).json({ message: "login", token });
+  return res.status(200).json({ message: "login", token });
 });
 
 //
