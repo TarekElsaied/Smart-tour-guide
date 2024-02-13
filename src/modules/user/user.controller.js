@@ -65,7 +65,7 @@ export const signIn = catchError(async (req, res) => {
   let user = await userModel.findOne({ email });
 
   if (!user || !(await bcrypt.compare(password, user.password))) {
-    return res.json({ message: "incorrect password or user" });
+    return res.status(500).json({ message: "incorrect password or user" });
   }
   user["password"] = undefined;
   var token = Jwt.sign({ user }, "Tarek");
