@@ -21,7 +21,7 @@ function catchError(fn) {
   return (req, res, next) => {
     fn(req, res)
       .catch((err) => {
-        res.json(err);
+        return res.json(err);
       })
       .then();
   };
