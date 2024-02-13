@@ -77,7 +77,7 @@ export const signIn = catchError(async (req, res) => {
 export const resetLink = catchError(async (req, res) => {
   const { email } = req.body;
   let user = await userModel.findOne({ email });
-  if (!user) return res.json("failed");
+  if (!user) return res.status(500).json("failed");
   const options = { email: user.email };
   let { randomCode, info } = await resetPassEmail(options);
   const token = Jwt.sign(
