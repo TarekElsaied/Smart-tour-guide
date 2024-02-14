@@ -25,9 +25,7 @@ export const getPlaceByName = async (req, res, next) => {
   try {
     const placeName = req.query.name;
     if (!placeName) return res.json("not found");
-    const place = placeModel.find({
-      name: { $regex: placeName, $options: "i" },
-    });
+    const place = await placeModel.findOne({ name: placeName }.exec());
     res.json(place);
   } catch (error) {
     console.log(error);
