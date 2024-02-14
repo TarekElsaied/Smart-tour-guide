@@ -20,6 +20,19 @@ export const getPlace = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getPlaceByName = async (req, res, next) => {
+  try {
+    const placeName = req.params.name;
+    if (!placeName) return res.json("not found");
+    const place = placeModel.find({
+      name: { $regex: placeName, $options: "i" },
+    });
+    res.json(place);
+  } catch (error) {
+    next(error);
+  }
+};
 export const getPlaces = (req, res) => {};
 
 export const addPlace = async (req, res, next) => {
