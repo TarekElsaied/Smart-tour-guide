@@ -23,13 +23,14 @@ export const getPlace = async (req, res, next) => {
 
 export const getPlaceByName = async (req, res, next) => {
   try {
-    const placeName = req.params.name;
+    const placeName = req.query.name;
     if (!placeName) return res.json("not found");
     const place = placeModel.find({
       name: { $regex: placeName, $options: "i" },
     });
     res.json(place);
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
