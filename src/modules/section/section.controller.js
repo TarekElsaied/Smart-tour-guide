@@ -48,11 +48,9 @@ export const UpdateSection = async (req, res, next) => {
     }
     const media = req.files.map((file) => file.filename);
 
-    const SectionMedia = { media };
-
     let update = await SectionModel.updateOne(
       { name: sectionName },
-      { media: SectionMedia },
+      { $push: { media: media } },
       { new: true }
     );
     res.json({ result, update });
