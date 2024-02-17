@@ -53,31 +53,31 @@ export const getAllSection = async (req, res, next) => {
 // { $push: { media: media } },
 //{ new: true }
 //);
-res.json({ result, update });
+//res.json({ result, update });
 //   } catch (error) {
 //     console.log(error);
 //     next(error);
 //   }
 // };
 
-export const UpdateSection = async (req, res, next) => {
+/*export const UpdateSection = async (req, res, next) => {
   try {
     const { sectionName } = req.body;
     let section = await SectionModel.findOne({ name: sectionName });
     if (!section) {
       return res.json({ message: "Section does not exist" });
     }
-    const media = req.files.map((file) => file.filename); // Assuming you're storing filenames
+    const media = req.files.map((file) => file.filename); 
 
     let update = await SectionModel.updateOne(
       { name: sectionName },
       { $push: { media: media } },
       { new: true }
     );
-    res.json({ result, update });
+    res.json({  update });
     res.json({ update });
   } catch (error) {
     console.log(error);
     next(error);
   }
-};
+};*/
