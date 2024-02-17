@@ -3,6 +3,7 @@ const SectionSchema = mongoose.Schema(
   {
     name: String,
     latLong: String,
+    media: Array,
     places: {
       type: [
         {

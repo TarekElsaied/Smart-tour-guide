@@ -28,7 +28,6 @@ export const getPlaceByName = async (req, res, next) => {
     const place = await placeModel.findOne({ name: placeName });
     res.json(place);
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };

@@ -15,6 +15,23 @@ conn();
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static("uploads"));
+import session from "express-session";
+import connectSession from "connect-mongodb-session";
+const MongoDBStore = connectSession(session);
+
+var store = new MongoDBStore({
+  uri: process.env.DB_URL,
+  collection: "mySessions",
+});
+
+app.use(
+  session({
+    secret: "keyboard mouse",
+    resave: false,
+    saveUninitialized: true,
+    store,
+  })
+);
 app.use("/places", placeRouter);
 app.use("/users", userRouter);
 app.use("/photo", phototRouter);

@@ -38,3 +38,26 @@ export const getAllSection = async (req, res, next) => {
     next(error);
   }
 };
+
+export const UpdateSection = async (req, res, next) => {
+  try {
+    const { sectionName } = req.body;
+    let section = await SectionModel.findOne({ name: sectionName });
+    if (!section) {
+      return res.json({ message: "section is not existed befor" });
+    }
+    const media = req.files.map((file) => file.filename);
+
+    const SectionMedia = { media };
+
+    let update = await SectionModel.updateOne(
+      { name: sectionName },
+      { media: SectionMedia },
+      { new: true }
+    );
+    res.json({ result, update });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
