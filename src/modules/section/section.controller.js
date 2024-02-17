@@ -59,7 +59,6 @@ export const getAllSection = async (req, res, next) => {
 //     next(error);
 //   }
 // };
-const SectionModel = require("../models/sectionModel");
 
 export const UpdateSection = async (req, res, next) => {
   try {
