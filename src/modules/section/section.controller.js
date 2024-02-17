@@ -48,12 +48,12 @@ export const getAllSection = async (req, res, next) => {
 //     }
 //     const media = req.files.map((file) => file.filename);
 
-//     let update = await SectionModel.updateOne(
-//       { name: sectionName },
-//       { $push: { media: media } },
-//       { new: true }
-//     );
-//     res.json({ result, update });
+let update = await SectionModel.updateOne(
+  { name: sectionName },
+  { $push: { media: media } },
+  { new: true }
+);
+res.json({ result, update });
 //   } catch (error) {
 //     console.log(error);
 //     next(error);
@@ -69,10 +69,12 @@ export const UpdateSection = async (req, res, next) => {
     }
     const media = req.files.map((file) => file.filename); // Assuming you're storing filenames
 
-    section.media.push(...media); // Add new media to existing media array
-
-    let update = await section.save();
-
+    let update = await SectionModel.updateOne(
+      { name: sectionName },
+      { $push: { media: media } },
+      { new: true }
+    );
+    res.json({ result, update });
     res.json({ update });
   } catch (error) {
     console.log(error);
