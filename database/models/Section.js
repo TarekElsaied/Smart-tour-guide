@@ -3,7 +3,12 @@ const SectionSchema = mongoose.Schema(
   {
     name: String,
     latLong: String,
-    media: Array,
+    // media: Array,
+    media: [
+      {
+        type: String, // Assuming you're storing file paths or filenames
+      },
+    ],
     places: {
       type: [
         {

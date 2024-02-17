@@ -39,21 +39,42 @@ export const getAllSection = async (req, res, next) => {
   }
 };
 
+// export const UpdateSection = async (req, res, next) => {
+//   try {
+//     const { sectionName } = req.body;
+//     let section = await SectionModel.findOne({ name: sectionName });
+//     if (!section) {
+//       return res.json({ message: "section is not existed befor" });
+//     }
+//     const media = req.files.map((file) => file.filename);
+
+//     let update = await SectionModel.updateOne(
+//       { name: sectionName },
+//       { $push: { media: media } },
+//       { new: true }
+//     );
+//     res.json({ result, update });
+//   } catch (error) {
+//     console.log(error);
+//     next(error);
+//   }
+// };
+const SectionModel = require("../models/sectionModel");
+
 export const UpdateSection = async (req, res, next) => {
   try {
     const { sectionName } = req.body;
     let section = await SectionModel.findOne({ name: sectionName });
     if (!section) {
-      return res.json({ message: "section is not existed befor" });
+      return res.json({ message: "Section does not exist" });
     }
-    const media = req.files.map((file) => file.filename);
+    const media = req.files.map((file) => file.filename); // Assuming you're storing filenames
 
-    let update = await SectionModel.updateOne(
-      { name: sectionName },
-      { $push: { media: media } },
-      { new: true }
-    );
-    res.json({ result, update });
+    section.media.push(...media); // Add new media to existing media array
+
+    let update = await section.save();
+
+    res.json({ update });
   } catch (error) {
     console.log(error);
     next(error);
