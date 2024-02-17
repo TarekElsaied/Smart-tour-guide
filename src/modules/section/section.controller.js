@@ -48,11 +48,11 @@ export const getAllSection = async (req, res, next) => {
 //     }
 //     const media = req.files.map((file) => file.filename);
 
-let update = await SectionModel.updateOne(
-  { name: sectionName },
-  { $push: { media: media } },
-  { new: true }
-);
+//let update = await SectionModel.updateOne(
+//{ name: sectionName },
+// { $push: { media: media } },
+//{ new: true }
+//);
 res.json({ result, update });
 //   } catch (error) {
 //     console.log(error);
