@@ -20,12 +20,7 @@ export const getSection = async (req, res, next) => {
     const { id } = req.params;
     if (!id) return res.json("not found");
     const section = await SectionModel.findById(id);
-    let places = [];
-    section.places.forEach((element) => {
-      places.push(element.populate("place"));
-    });
-    let result = { name: section.name, des: section.desc, places };
-    res.json(result);
+    res.json(section);
   } catch (error) {
     next(error);
   }
@@ -39,45 +34,23 @@ export const getAllSection = async (req, res, next) => {
   }
 };
 
-// export const UpdateSection = async (req, res, next) => {
-//   try {
-//     const { sectionName } = req.body;
-//     let section = await SectionModel.findOne({ name: sectionName });
-//     if (!section) {
-//       return res.json({ message: "section is not existed befor" });
-//     }
-//     const media = req.files.map((file) => file.filename);
-
-//let update = await SectionModel.updateOne(
-//{ name: sectionName },
-// { $push: { media: media } },
-//{ new: true }
-//);
-//res.json({ result, update });
-//   } catch (error) {
-//     console.log(error);
-//     next(error);
-//   }
-// };
-
-/*export const UpdateSection = async (req, res, next) => {
+export async function updateSectionImage(req, res, next) {
   try {
-    const { sectionName } = req.body;
-    let section = await SectionModel.findOne({ name: sectionName });
-    if (!section) {
-      return res.json({ message: "Section does not exist" });
-    }
-    const media = req.files.map((file) => file.filename); 
+    const { id } = req.params;
 
-    let update = await SectionModel.updateOne(
-      { name: sectionName },
-      { $push: { media: media } },
-      { new: true }
-    );
-    res.json({  update });
-    res.json({ update });
+    const section = await SectionModel.findById(id);
+    if (!section) {
+      return res.status(404).json({ message: "Section not found" });
+    }
+    // Check if files were uploaded
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).json({ message: "No files were uploaded" });
+    }
+    const image = req.files.map((file) => section.media.push(file.filename));
+    await section.save();
+    res.json({ message: "Images uploaded successfully", section });
   } catch (error) {
-    console.log(error);
-    next(error);
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
-};*/
+}
