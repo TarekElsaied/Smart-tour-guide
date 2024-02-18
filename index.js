@@ -28,7 +28,7 @@ app.use(
   session({
     secret: "keyboard mouse",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store,
   })
 );

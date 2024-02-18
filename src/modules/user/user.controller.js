@@ -1,5 +1,5 @@
 import { userModel } from "../../../database/models/user.model.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import Joi from "joi";
 import Jwt from "jsonwebtoken";
 import { sendeEmail, resetPassEmail } from "../../emails/user.email.js";

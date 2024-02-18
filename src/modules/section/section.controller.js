@@ -46,7 +46,7 @@ export async function updateSectionImage(req, res, next) {
     if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).json({ message: "No files were uploaded" });
     }
-    const image = req.files.map((file) => section.media.push(file.filename));
+    req.files.map((file) => section.media.push(file.filename));
     await section.save();
     res.json({ message: "Images uploaded successfully", section });
   } catch (error) {
