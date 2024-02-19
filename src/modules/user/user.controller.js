@@ -1,7 +1,8 @@
 import { userModel } from "../../../database/models/user.model.js";
 import bcrypt from "bcryptjs";
 import Joi from "joi";
-import jwt from "jsonwebtoken";
+import Jwt from "jsonwebtoken";
+import { generatetoken } from "../../utils/generateToken.js";
 import { sendeEmail, resetPassEmail } from "../../emails/user.email.js";
 import { config } from "dotenv";
 config();
@@ -73,7 +74,7 @@ export const verify = catchError(async (req, res) => {
 });*/
 
 // Sign-in API endpoint
-export const signIn = async (req, res) => {
+/*export const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
     // Check if the user exists
@@ -97,8 +98,25 @@ export const signIn = async (req, res) => {
     console.error("Error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-};
+};*/
+export const signIn = async (req, res) => {
+  const { email, password } = req.body;
 
+  // Check if the user exists
+  const user = await userModel.findOne({ email });
+  if (!user) {
+    return res.status(401).json({ message: "Invalid email" });
+  }
+  // Check if the password is correct
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) {
+    return res.status(401).json({ message: "Invalid or password" });
+  }
+
+  // Generate JWT token
+  let token = generatetoken({ name: user.name, email: user.email });
+  res.json({ message: "login", token });
+};
 //
 
 export const resetLink = catchError(async (req, res) => {
