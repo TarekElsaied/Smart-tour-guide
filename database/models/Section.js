@@ -21,6 +21,6 @@ const SectionSchema = mongoose.Schema(
   { timestamp: true }
 );
 SectionSchema.post("init", (doc) => {
-  doc.media = "https://test-proj-g6wo.onrender.com/uploads/" + doc.media;
+  doc.media = "https://test-proj-g6wo.onrender.com/" + doc.media;
 });
 export const SectionModel = mongoose.model("Section", SectionSchema);
