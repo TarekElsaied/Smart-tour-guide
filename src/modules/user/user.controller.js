@@ -1,5 +1,6 @@
 import { userModel } from "../../../database/models/user.model.js";
 import bcrypt from "bcryptjs";
+import Joi from "joi";
 import jwt from "jsonwebtoken";
 import { sendeEmail, resetPassEmail } from "../../emails/user.email.js";
 import { config } from "dotenv";
@@ -77,7 +78,7 @@ export const signIn = async (req, res) => {
     const { email, password } = req.body;
 
     // Check if the user exists
-    const user = await UserModel.findOne({ email });
+    const user = await userModel.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
