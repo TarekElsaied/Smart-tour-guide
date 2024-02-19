@@ -115,7 +115,7 @@ export const signIn = async (req, res) => {
 
   // Generate JWT token
   let token = generatetoken({ name: user.name, email: user.email });
-  res.json({ message: "login", token });
+  res.status(200).json({ message: "login", token });
 };
 //
 
