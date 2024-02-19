@@ -76,7 +76,6 @@ export const verify = catchError(async (req, res) => {
 export const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
-
     // Check if the user exists
     const user = await userModel.findOne({ email });
     if (!user) {

@@ -11,7 +11,7 @@ const placeSchema = mongoose.Schema(
 );
 placeSchema.post("init", (doc) => {
   doc.media = doc.media.map(
-    (path) => "https://grad-project-alpha.vercel.app/uploads/" + path
+    (path) => "https://test-proj-g6wo.onrender.com/uploads/" + path
   );
 });
 export const placeModel = mongoose.model("place", placeSchema);
