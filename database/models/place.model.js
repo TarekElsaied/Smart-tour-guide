@@ -10,6 +10,6 @@ const placeSchema = mongoose.Schema(
   { timestamp: true }
 );
 placeSchema.post("init", (doc) => {
-  doc.media = "https://grad-project-alpha.vercel.app/" + doc.media;
+  doc.media = "https://grad-project-alpha.vercel.app/uploads/" + doc.media;
 });
 export const placeModel = mongoose.model("place", placeSchema);

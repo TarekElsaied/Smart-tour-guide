@@ -21,6 +21,6 @@ const SectionSchema = mongoose.Schema(
   { timestamp: true }
 );
 SectionSchema.post("init", (doc) => {
-  doc.media = "https://grad-project-alpha.vercel.app/" + doc.media;
+  doc.media = "https://grad-project-alpha.vercel.app/uploads/" + doc.media;
 });
 export const SectionModel = mongoose.model("Section", SectionSchema);
