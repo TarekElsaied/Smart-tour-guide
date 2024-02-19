@@ -6,7 +6,7 @@ import { sendeEmail, resetPassEmail } from "../../emails/user.email.js";
 import { config } from "dotenv";
 config();
 
-const _JwtSecret = process.env.JWT_SECRET;
+const _JwtSecret = process.env._JwtSecret;
 const signUpSchema = Joi.object({
   name: Joi.string().min(3).max(30).required(),
   email: Joi.string().email().required(),
@@ -82,7 +82,6 @@ export const signIn = async (req, res) => {
     if (!user) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
-
     // Check if the password is correct
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
@@ -90,7 +89,7 @@ export const signIn = async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
+    const token = jwt.sign({ userId: user._id }, _JwtSecret, {
       expiresIn: "1h",
     });
 
