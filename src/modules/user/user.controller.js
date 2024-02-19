@@ -1,7 +1,6 @@
 import { userModel } from "../../../database/models/user.model.js";
 import bcrypt from "bcryptjs";
-import Joi from "joi";
-import Jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { sendeEmail, resetPassEmail } from "../../emails/user.email.js";
 import { config } from "dotenv";
 config();
@@ -72,12 +71,13 @@ export const verify = catchError(async (req, res) => {
   return res.status(200).json({ message: "login", token });
 });*/
 
+// Sign-in API endpoint
 export const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
 
     // Check if the user exists
-    const user = await userModel.findOne({ email });
+    const user = await UserModel.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
@@ -89,7 +89,7 @@ export const signIn = async (req, res) => {
     }
 
     // Generate JWT token
-    const token = Jwt.sign({ userId: user._id }, "your-secret-key", {
+    const token = jwt.sign({ userId: user._id }, "your-secret-key", {
       expiresIn: "1h",
     });
 
@@ -99,6 +99,7 @@ export const signIn = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
 //
 
 export const resetLink = catchError(async (req, res) => {
