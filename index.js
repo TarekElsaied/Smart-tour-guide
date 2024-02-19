@@ -7,11 +7,13 @@ import cookieParser from "cookie-parser";
 import phototRouter from "./src/modules/photo/photo.routers.js";
 import placeRouter from "./src/modules/place/place.routers.js";
 import SectionRouter from "./src/modules/section/section.route.js";
+import cors from "cors";
 dotenv.config();
 const app = express();
 const port = 3000;
 
 conn();
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static("uploads"));
