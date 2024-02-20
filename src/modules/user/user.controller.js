@@ -2,6 +2,7 @@ import { userModel } from "../../../database/models/user.model.js";
 import bcrypt from "bcrypt";
 import Joi from "joi";
 import Jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { generatetoken } from "../../utils/generateToken.js";
 import { sendeEmail, resetPassEmail } from "../../emails/user.email.js";
 import { config } from "dotenv";
