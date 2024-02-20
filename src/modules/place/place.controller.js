@@ -21,7 +21,7 @@ export const getPlace = async (req, res, next) => {
   }
 };
 
-export const getPlaceByName = async (req, res, next) => {
+/*export const getPlaceByName = async (req, res, next) => {
   try {
     const placeName = req.params.name;
     if (!placeName) return res.json("not found");
@@ -31,6 +31,25 @@ export const getPlaceByName = async (req, res, next) => {
     next(error);
   }
 };
+*/
+export const getPlaceByName = async (req, res, next) => {
+  try {
+    const placeName = req.params.name;
+    if (!placeName) {
+      return res.status(404).json({ message: "Place name not provided" });
+    }
+    const places = await placeModel.find({
+      $text: { $search: `"${placeName}"` },
+    });
+    if (!places || places.length === 0) {
+      return res.status(404).json({ message: "Place not found" });
+    }
+    res.json(places);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getPlaces = (req, res) => {};
 
 export const addPlace = async (req, res, next) => {
