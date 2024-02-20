@@ -38,13 +38,11 @@ export const getPlaceByName = async (req, res, next) => {
     if (!placeName) {
       return res.status(404).json({ message: "Place name not provided" });
     }
-    const places = await placeModel.find({
-      $text: { $search: `"${placeName}"` },
-    });
-    if (!places || places.length === 0) {
+    const place = await placeModel.findOne({ name: regex });
+    if (!place) {
       return res.status(404).json({ message: "Place not found" });
     }
-    res.json(places);
+    res.json(place);
   } catch (error) {
     next(error);
   }
