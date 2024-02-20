@@ -125,11 +125,14 @@ export const signIn = async (req, res) => {
   if (user) {
     const match = await bcrypt.compare(password, user.password);
     if (match) {
-      let token = Jwt.sign({
-        name: user.name,
-        role: user.role,
-        userId: user._id,
-      });
+      let token = Jwt.sign(
+        {
+          name: user.name,
+          role: user.role,
+          userId: user._id,
+        },
+        _JwtSecret
+      );
       res.status(200).json({ message: "Success", token });
     } else {
       res.status(401).json({ message: "Password incorrect" });
