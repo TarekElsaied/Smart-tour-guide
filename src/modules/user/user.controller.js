@@ -133,12 +133,12 @@ export const signIn = async (req, res) => {
         },
         _JwtSecret
       );
-      res.status(200).json({ message: "Success", token });
+      res.json({ message: "Success", token });
     } else {
-      res.status(401).json({ message: "Password incorrect" });
+      res.json({ message: "Password incorrect" });
     }
   } else {
-    res.status(401).json({ message: "Password incorrect" });
+    res.json({ message: "Password incorrect" });
   }
 };
 
