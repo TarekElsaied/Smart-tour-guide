@@ -1,5 +1,5 @@
 import { userModel } from "../../../database/models/user.model.js";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import Joi from "joi";
 import Jwt from "jsonwebtoken";
 import { generatetoken } from "../../utils/generateToken.js";
@@ -99,6 +99,7 @@ export const verify = catchError(async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };*/
+/*roqya
 export const signIn = async (req, res) => {
   const { email, password } = req.body;
 
@@ -116,8 +117,27 @@ export const signIn = async (req, res) => {
   // Generate JWT token
   let token = generatetoken({ name: user.name, email: user.email });
   res.status(200).json({ message: "login", token });
-};
+};*/
 //
+export const signIn = async (req, res) => {
+  const { email, password } = req.body;
+  const user = await userModel.findOne({ email });
+  if (user) {
+    const match = await bcrypt.compare(password, user.password);
+    if (match) {
+      let token = Jwt.sign({
+        name: user.name,
+        role: user.role,
+        userId: user_id,
+      });
+      res.status(200).json({ message: "Success", token });
+    } else {
+      res.status(401).json({ message: "Password incorrect" });
+    }
+  } else {
+    res.status(401).json({ message: "Password incorrect" });
+  }
+};
 
 export const resetLink = catchError(async (req, res) => {
   const { email } = req.body;
