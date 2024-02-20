@@ -125,7 +125,7 @@ export const signIn = async (req, res) => {
   if (user) {
     const match = await bcrypt.compare(password, user.password);
     if (match) {
-      let token = Jwt.sign(
+      let token = jwt.sign(
         {
           name: user.name,
           role: user.role,
