@@ -99,7 +99,7 @@ export const verify = catchError(async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };*/
-
+/*
 export const signIn = async (req, res) => {
   const { email, password } = req.body;
 
@@ -117,9 +117,9 @@ export const signIn = async (req, res) => {
   // Generate JWT token
   let token = generatetoken({ name: user.name, email: user.email });
   res.status(200).json({ message: "login", token });
-};
+};*/
 //
-/*export const signIn = async (req, res) => {
+export const signIn = async (req, res) => {
   const { email, password } = req.body;
   const user = await userModel.findOne({ email });
   if (user) {
@@ -128,7 +128,7 @@ export const signIn = async (req, res) => {
       let token = Jwt.sign({
         name: user.name,
         role: user.role,
-        userId: user_id,
+        userId: user._id,
       });
       res.status(200).json({ message: "Success", token });
     } else {
@@ -137,7 +137,7 @@ export const signIn = async (req, res) => {
   } else {
     res.status(401).json({ message: "Password incorrect" });
   }
-};*/
+};
 
 export const resetLink = catchError(async (req, res) => {
   const { email } = req.body;
