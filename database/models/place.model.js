@@ -6,6 +6,14 @@ const placeSchema = mongoose.Schema(
     desc: String,
     media: Array,
     coordinates: String,
+    hotels: {
+      type: [
+        {
+          type: mongoose.Types.ObjectId,
+          ref: "hotel",
+        },
+      ],
+    },
   },
   { timestamp: true }
 );

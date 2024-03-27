@@ -32,39 +32,6 @@ export const getPlaceByName = async (req, res, next) => {
   }
 };
 
-/*export const getPlaceByName = async (req, res, next) => {
-  const placeName = req.params.name;
-
-    try {
-        // تحويل الفراغات إلى %20 في عبارة البحث
-        const formattedName = placeName.replace(/ /g, '%20');
-
-        // تقسيم الاسم إلى كلمات فردية
-        const nameParts = placeName.split(' ');
-
-        // بناء التعبير العادي للبحث عن كلمات الاسم مع الفراغات بينها
-        const regexParts = nameParts.map(part => `(?=.*${part})`).join('\\s');
-
-        // تطبيق التعبير العادي في البحث
-        const regex = new RegExp(regexParts, 'i');
-
-        // البحث عن المكان باستخدام التعبير العادي
-        const place = await Place.findOne({ name: regex });
-
-        if (!place) {
-            return res.status(404).json({ message: 'Place not found' });
-        }
-
-        // إذا تم العثور على المكان، يتم إرجاعه كإجابة
-        res.json(place);
-    } catch (error) {
-        // في حالة وجود خطأ، يتم إرجاع رسالة الخطأ كإجابة
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-}
-*/
-
 export const addPlace = async (req, res, next) => {
   try {
     const { sectionName, name, desc, coordinates } = req.body;

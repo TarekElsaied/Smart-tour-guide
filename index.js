@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import phototRouter from "./src/modules/photo/photo.routers.js";
 import placeRouter from "./src/modules/place/place.routers.js";
 import SectionRouter from "./src/modules/section/section.route.js";
+import hotelRouter from "./src/modules/hotel/hotel.router.js";
 import cors from "cors";
 dotenv.config();
 const app = express();
@@ -38,6 +39,7 @@ app.use("/places", placeRouter);
 app.use("/users", userRouter);
 app.use("/photo", phototRouter);
 app.use("/Section", SectionRouter);
+app.use("/hotel", hotelRouter);
 
 app.get("/tes", (req, res) => {
   return res.json({ message: "welcome to our website" });
