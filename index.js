@@ -20,6 +20,7 @@ app.use(cookieParser());
 app.use(express.static("uploads"));
 import session from "express-session";
 import connectSession from "connect-mongodb-session";
+import restaurantRouter from "./src/modules/restaurant/restaurant.router.js";
 const MongoDBStore = connectSession(session);
 
 var store = new MongoDBStore({
@@ -40,6 +41,7 @@ app.use("/users", userRouter);
 app.use("/photo", phototRouter);
 app.use("/Section", SectionRouter);
 app.use("/hotel", hotelRouter);
+app.use("/restaurant", restaurantRouter);
 
 app.get("/tes", (req, res) => {
   return res.json({ message: "welcome to our website" });
