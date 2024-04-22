@@ -2,17 +2,24 @@ import mongoose from "mongoose";
 
 const restaurantSchema = mongoose.Schema(
   {
-    placeName: {
+    ServiceOptions: {
       type: String,
-      required: true,
     },
-    placeID: [String],
+    address: {
+      type: String,
+    },
+    PricePerPerson: {
+      type: String,
+    },
     name: {
       type: String,
       required: true,
     },
     info: {
       type: String,
+    },
+    hours: {
+      types: String,
     },
     rating: {
       type: Number,

@@ -23,29 +23,33 @@ export const getRestaurantByID = async (req, res, next) => {
 
 export const addrestaurant = async (req, res, next) => {
   try {
-    const { palceName, placeID, name, info, rating, telephone } = req.body;
-    let place = await placeModel.findById({ _id: placeID });
-    if (!place) {
-      return res.json({ message: "place is not existed befor" });
-    }
+    const {
+      ServiceOptions,
+      address,
+      name,
+      info,
+      rating,
+      telephone,
+      PricePerPerson,
+      hours,
+    } = req.body;
+
     const imgs = req.files.map((file) => file.filename);
 
     const restaurant = {
-      placeID: place._id,
-      placeName: palceName,
+      PricePerPerson,
       name,
       info,
       rating,
       imgs,
       telephone,
+      hours,
+      address,
+      ServiceOptions,
     };
     const result = await restaurantModel.insertMany(restaurant);
-    let update = await placeModel.updateOne(
-      { _id: placeID },
-      { $push: { restaurants: result[0]._id } },
-      { new: true }
-    );
-    res.json({ result, update });
+
+    res.json({ message: "success", result });
   } catch (error) {
     console.log(error);
     next(error);
