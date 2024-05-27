@@ -21,6 +21,7 @@ app.use(express.static("uploads"));
 import session from "express-session";
 import connectSession from "connect-mongodb-session";
 import restaurantRouter from "./src/modules/restaurant/restaurant.router.js";
+import busRouter from "./src/modules/bus/bus.router.js";
 const MongoDBStore = connectSession(session);
 
 var store = new MongoDBStore({
@@ -42,6 +43,7 @@ app.use("/photo", phototRouter);
 app.use("/Section", SectionRouter);
 app.use("/hotel", hotelRouter);
 app.use("/restaurant", restaurantRouter);
+app.use("/bus", busRouter);
 
 app.get("/tes", (req, res) => {
   return res.json({ message: "welcome to our website" });

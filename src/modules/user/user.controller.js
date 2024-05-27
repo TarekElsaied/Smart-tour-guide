@@ -32,7 +32,6 @@ export const signUp = catchError(async (req, res) => {
   const { age, email, password, name } = req.body;
   let { error } = signUpSchema.validate(req.body);
 
-  console.log(req.body);
   if (!error) {
     let user = await userModel.findOne({ email });
     if (user) {
@@ -45,7 +44,7 @@ export const signUp = catchError(async (req, res) => {
       });
     }
   } else {
-    res.status(422).json(error.details);
+    res.status(402).json(error.details);
   }
 });
 

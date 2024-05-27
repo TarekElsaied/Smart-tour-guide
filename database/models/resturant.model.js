@@ -27,9 +27,7 @@ const restaurantSchema = mongoose.Schema(
     },
     imgs: [String],
     telephone: {
-      type: Number,
-      min: 0,
-      max: 99999999999,
+      type: String,
     },
   },
   { timestamp: true }

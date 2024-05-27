@@ -14,9 +14,18 @@ const placeSchema = mongoose.Schema(
         },
       ],
     },
+    buses: {
+      type: [
+        {
+          type: mongoose.Types.ObjectId,
+          ref: "bus",
+        },
+      ],
+    },
   },
   { timestamp: true }
 );
+
 placeSchema.post("init", (doc) => {
   doc.media = doc.media.map(
     (path) => "https://test-proj-g6wo.onrender.com/" + path
